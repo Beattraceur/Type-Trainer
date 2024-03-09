@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Noto Sans JP';
+  src: url('../fonts/Noto-Sans-regular.woff2') format('woff2'), /* WOFF2 format */
+       url('../fonts/Noto-Sans-regular.woff') format('woff'); /* WOFF format */
+  font-weight: normal;
+  font-style: normal;
+}

@@ -1,0 +1,47 @@
+<!--  ______                                               -->
+<!-- /\__  _\                                              -->
+<!-- \/_/\ \/  __  __   _____      __                      -->
+<!--    \ \ \ /\ \/\ \ /\ '__`\  /'__`\                    -->
+<!--     \ \ \\ \ \_\ \\ \ \L\ \/\  __/                    -->
+<!--      \ \_\\/`____ \\ \ ,__/\ \____\                   -->
+<!--       \/_/ `/___/> \\ \ \/  \/____/                   -->
+<!--  ______       /\___/ \ \_\                            -->
+<!-- /\__  _\      \/__/   \/_/                            -->
+<!-- \/_/\ \/  _ __    __   /\_\     ___       __   _ __   -->
+<!--    \ \ \ /\`'__\/'__`\ \/\ \  /' _ `\   /'__`\/\`'__\ -->
+<!--     \ \ \\ \ \//\ \L\.\_\ \ \ /\ \/\ \ /\  __/\ \ \/  -->
+<!--      \ \_\\ \_\\ \__/.\_\\ \_\\ \_\ \_\\ \____\\ \_\  -->
+<!--       \/_/ \/_/ \/__/\/_/ \/_/ \/_/\/_/ \/____/ \/_/  -->
+<!--                                       by Benjamin Hahl-->
+<!--                                                      
+  index.html
+  is the entry point for the TypeTrainer application.
+-->
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>TypeTrainer</title>
+    <!-- manifest for instal -->
+    <link rel="manifest" href="manifest.json">
+    <!-- svg as favicon -->
+    <link rel="icon" href="./img/favicon.svg">
+    <!-- Load NotoSansJP Font -->
+    <link rel="stylesheet" type="text/css" href="css/fonts.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- chart.js lib integration -->
+    <script src = "js/chart_4.min.js"></script>
+    <!-- JavaScript is loaded as modules from app.js -->
+    <script type="module" src="js/app.js" defer></script> 
+  </head>
+  <body>
+    <!-- mouseOverlay shows notification screen when clicking -->
+    <div id="mouseOverlay" class="off-visibility"></div>
+    <h2 class="title">TypeTrainer タイピングトレーナー</h1>
+    <h4 id="player" class="playerName">Guest</h4>
+    <!-- main container -->
+    <div id="center-container"></div>  
+  </body>
+</html>
+
