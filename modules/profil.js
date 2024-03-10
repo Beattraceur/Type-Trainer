@@ -40,7 +40,8 @@ import { el } from "./lib.js";
 import { globals, inputRouter } from "./main.js";
 import { selectOption } from "./typeIt.js";
 import { db } from "./db.js";
-import { generateTextDate, downloadObjectAsJson, displayLineChart } from "./generator.js";
+import { generateTextDate, downloadObjectAsJson, displayLineChart, generateMonBoxes } from "./generator.js";
+import { pickMonster } from "./monster.js";
 
 //Global variable as temp storage
 let sel = 0;
@@ -52,6 +53,9 @@ let chartActive = false;
 export function selProfil(keyEvent){
  if (keyEvent === 'pioneer'){//first call makes HTML
 
+  ///####MonsterBoxes
+  const monDisplayHtml = generateMonBoxes();
+  let html = monDisplayHtml.innerHTML;
   ///#############Select Object
   const profilOptions = {
     possCount    :  3,
@@ -61,7 +65,7 @@ export function selProfil(keyEvent){
   }
 ///#############Create Startpage
     // use Object to create the HTML
-    const html =`
+     html +=`
 <pre>
 <span id="sel1" class="high-visibility"></span><span id="opt1" class="low-visibility">${profilOptions.option1}</span> Profil
 
@@ -73,6 +77,8 @@ export function selProfil(keyEvent){
   `;
 
   el('#center-container').innerHTML = html;
+  showMonsterList();  
+
 
   selectOption(profilOptions,keyEvent);
     
@@ -329,4 +335,17 @@ playerData.games.forEach((obj) => {
 });
   //console.log(maxValue);
   return maxValue;
+}
+
+function showMonsterList(){
+  globals.monDisp.forEach((box,index)=>{
+    if(box===1){
+      console.log(box+1,'seen');
+      el(`#monID${index+1}`).innerHTML= pickMonster(index+1);
+    }else if(box===2){
+      console.log(box+1,'own');
+      el(`#monID${index+1}`).innerHTML= pickMonster(index+1);
+      el(`#monID${index+1}`).classList.remove('low-visibility');
+    }
+  });
 }

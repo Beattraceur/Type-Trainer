@@ -337,6 +337,47 @@ export function updateTimer(questTimeLeft){
   el('#timer').innerText =`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
+export function generateMonBoxes(){
+ console.log('mon boxes');
+ const boxGrid = create('div');
+ let boxID = 1;
+for (let i = 0; i < 3; i++){
+
+  const boxRow = create('div');
+  boxRow.setAttribute('class','boxRow');
+  for (let i = 0; i < 5; i++){
+    const monBox = create('div');
+    monBox.setAttribute('id',`box${boxID}`);
+    monBox.setAttribute('class',`monbox`);
+    monBox.innerHTML= `<pre>
+ ______________<div id="monID${boxID}" class="low-visibility monDisplay"><pre>
+
+
+   ___
+  |__ \\     
+    / /     
+   |_|      
+   (_) 
+</pre></div>    
+|‾‾‾‾‾‾‾‾‾‾‾‾‾‾|
+|              |
+|              |
+|              |
+|              |
+|              |
+|______________|
+ ‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+</pre>`;
+    boxRow.append(monBox);
+    boxID++;
+   }
+   boxGrid.append(boxRow);
+}
+console.log(boxGrid);
+return boxGrid;
+}
+
+
 //////////////////////AI generated stuff below///////////////////////
 ////AI generated ########################### Date Converter
 export function generateTextDate(timeStamp){

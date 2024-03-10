@@ -147,14 +147,31 @@ body {
   text-shadow: 1pt 1pt 3px gray;
   /* border: solid 2px darkred; */
   padding: 10px;
-
+}
+.boxRow{
+  /* border: solid 1px green; */
+  display: flex;
+  
+}
+.box1{
+  border: solid 1px blue;
 }
 
+.monbox{
+  margin-top: -2rem;
+  margin-bottom: -2rem;
+  margin-right: -1rem;
+  /* border: double 1px yellow; */
+}
+.monDisplay{
+  position: absolute;
+  margin-top: -2rem;
+  margin-left: 2rem;
+}
 /* vvv  KeyBoard  vvv */
 
 #keyboard-container{
   margin-top: 5px;
-  
   width: 60rem;
   border: solid 0.4rem  rgb(70, 70, 70);
   border-radius: 15px;
@@ -192,17 +209,7 @@ label{
   width: 8%;
   border-bottom-right-radius: 0px;
 }
-/* .enterOverlap{
-  position:relative;
-  right: 21.6%;
-  bottom: 76.8%;
-  height: 10rem;
-  width: 127%;
-  border-left: solid 3px grey;
-  border-right: solid 3px grey;
-  background-color: var(--background-color);
-  
-} */
+
 .enterMidBackR{
   border: solid 0.1rem grey;
   position: absolute;

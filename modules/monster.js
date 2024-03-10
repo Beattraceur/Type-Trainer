@@ -62,10 +62,11 @@ export function pickMonster(id){
     case 1:
       monsterHTML =`
 <pre>
-,___,
-(O,O)
- (_(\\
-⎺⎺""⎺⎺
+
+  ,___,
+  (O,O)
+   (_(\\
+  ⎺⎺""⎺⎺
 </pre>
       `;
       break;
@@ -84,12 +85,12 @@ export function pickMonster(id){
     case 3:
       monsterHTML =`
 <pre>
-   //
-  <°)
-  /\\\\
-__\\_V__
-‾‾‾||‾‾
-   ||  
+    //
+   <°)
+   /\\\\
+ __\\_V__
+ ‾‾‾||‾‾
+    ||  
 </pre>
       `;
       break;  
