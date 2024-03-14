@@ -35,37 +35,43 @@
   maxInGameHistory() ... search throug the game history for
                          the max value of a given param and
                          returns theis max value.
-*/ 
+*/
 import { el } from "./lib.js";
 import { globals, inputRouter } from "./main.js";
 import { selectOption } from "./typeIt.js";
 import { db } from "./db.js";
-import { generateTextDate, downloadObjectAsJson, displayLineChart, generateMonBoxes } from "./generator.js";
-import { pickMonster } from "./monster.js";
+import {
+  generateTextDate,
+  downloadObjectAsJson,
+  displayLineChart,
+  generateMonBoxes,
+} from "./generator.js";
+import { showMonsterList } from "./monster.js";
 
 //Global variable as temp storage
 let sel = 0;
 let profilCount = 0;
 let keys = [];
-let playerData ={};
+let playerData = {};
 let chartActive = false;
 
-export function selProfil(keyEvent){
- if (keyEvent === 'pioneer'){//first call makes HTML
+export function selProfil(keyEvent) {
+  if (keyEvent === "pioneer") {
+    //first call makes HTML
 
-  ///####MonsterBoxes
-  const monDisplayHtml = generateMonBoxes();
-  let html = monDisplayHtml.innerHTML;
-  ///#############Select Object
-  const profilOptions = {
-    possCount    :  3,
-    option1      :  'new',
-    option2      :  'load',
-    option3      :  'show'
-  }
-///#############Create Startpage
+    ///####MonsterBoxes
+    const monDisplayHtml = generateMonBoxes();
+    let html = monDisplayHtml.innerHTML;
+    ///#############Select Object
+    const profilOptions = {
+      possCount: 3,
+      option1: "new",
+      option2: "load",
+      option3: "show",
+    };
+    ///#############Create Startpage
     // use Object to create the HTML
-     html +=`
+    html += `
 <pre>
 <span id="sel1" class="high-visibility"></span><span id="opt1" class="low-visibility">${profilOptions.option1}</span> Profil
 
@@ -76,37 +82,32 @@ export function selProfil(keyEvent){
 </pre>
   `;
 
-  el('#center-container').innerHTML = html;
-  showMonsterList();  
+    el("#center-container").innerHTML = html;
+    showMonsterList();
 
-
-  selectOption(profilOptions,keyEvent);
-    
-  }else{
-    const selOption = selectOption('',keyEvent);
-    if(selOption === 1){
-      
-      el('#center-container').innerHTML = ''; //clear center container
+    selectOption(profilOptions, keyEvent);
+  } else {
+    const selOption = selectOption("", keyEvent);
+    if (selOption === 1) {
+      el("#center-container").innerHTML = ""; //clear center container
       globals.layer = 6;
-      inputRouter('pioneer');
-    }else if(selOption === 2){
-      
-      
-      el('#center-container').innerHTML = ''; //clear center container
+      inputRouter("pioneer");
+    } else if (selOption === 2) {
+      el("#center-container").innerHTML = ""; //clear center container
       globals.layer = 7;
-      inputRouter('pioneer');
-    }else if(selOption === 3){
-      
-      el('#center-container').innerHTML = ''; //clear center container
+      inputRouter("pioneer");
+    } else if (selOption === 3) {
+      el("#center-container").innerHTML = ""; //clear center container
       globals.layer = 8;
-      inputRouter('pioneer');
+      inputRouter("pioneer");
     }
   }
 }
 
-export function newProfil(keyEvent){
-  if (keyEvent === 'pioneer'){//first call makes HTML
-    el('#center-container').innerHTML =`
+export function newProfil(keyEvent) {
+  if (keyEvent === "pioneer") {
+    //first call makes HTML
+    el("#center-container").innerHTML = `
 <pre>
     __________________   __________________
 .-/|                  \\ /                  |\\-.
@@ -125,49 +126,45 @@ export function newProfil(keyEvent){
 '--------------------~___~-------------------''
 
 <p class="idb-notification">This Profil will be saved in your local browser idb database only</p>
-</pre>`
-
-;
-setTimeout(()=> el('#nameInput').focus(),1); /// timeout needed so that the 'w' from last input 'new' is not in the input field
-
-  }else
-  if(keyEvent==='Enter'){
-    const name = el('#nameInput').value;
+</pre>`;
+    setTimeout(() => el("#nameInput").focus(), 1); /// timeout needed so that the 'w' from last input 'new' is not in the input field
+  } else if (keyEvent === "Enter") {
+    const name = el("#nameInput").value;
     const profilID = Date.now();
     const profilObj = {
-      id  :   profilID,
+      id: profilID,
       name,
-      maxlvl : 1,
-      games : []
-    }
-    db.writeItem(profilID,profilObj);
-    el('#player').innerText = name;
+      maxlvl: 1,
+      games: [],
+    };
+    db.writeItem(profilID, profilObj);
+    el("#player").innerText = name;
     globals.playerID = profilID;
     globals.layer = 2;
-    inputRouter('pioneer');
+    inputRouter("pioneer");
   }
-  
 }
 
-export async function loadProfil(keyEvent){
-  
-  if (keyEvent === 'pioneer'){//first call makes HTML
+export async function loadProfil(keyEvent) {
+  if (keyEvent === "pioneer") {
+    //first call makes HTML
     keys = await db.readKeys();
     const playerData = await db.readAllItems();
     profilCount = keys.length;
-    if(profilCount === 0){    ///notify if nothing is in storage
-      console.log('guest with no data');
-      el('#center-container').innerHTML = '<h3>no data found</h3><p>press any key to leave</p>';
-    }else{
-      let html ='';
-      Object.keys(playerData).forEach(key => {
-
-        html +=`
+    if (profilCount === 0) {
+      ///notify if nothing is in storage
+      console.log("guest with no data");
+      el("#center-container").innerHTML =
+        "<h3>no data found</h3><p>press any key to leave</p>";
+    } else {
+      let html = "";
+      Object.keys(playerData).forEach((key) => {
+        html += `
          <p id="key${key}" class="low-visibility">${playerData[key].name}</p>
          `;
       });
 
-        html += `
+      html += `
 <pre>
 navigation    [↑][↓]
                 
@@ -179,77 +176,67 @@ select          [←‾|
 </pre>
         `;
 
-      el('#center-container').innerHTML = html;
-      el('#key0').classList.remove('low-visibility');
+      el("#center-container").innerHTML = html;
+      el("#key0").classList.remove("low-visibility");
     }
-    
-    
-  }else{
-    if(profilCount === 0){  ///abort if nothing is in storage
+  } else {
+    if (profilCount === 0) {
+      ///abort if nothing is in storage
       globals.layer = 2;
-      inputRouter('pioneer');
-    }else
-    if(keyEvent === 'ArrowDown'){
-      el(`#key${sel}`).classList.add('low-visibility');
+      inputRouter("pioneer");
+    } else if (keyEvent === "ArrowDown") {
+      el(`#key${sel}`).classList.add("low-visibility");
       sel++;
-      if(sel >= profilCount){
+      if (sel >= profilCount) {
         sel = 0;
       }
-      el(`#key${sel}`).classList.remove('low-visibility');
-    }else
-    if(keyEvent === 'ArrowUp'){
-      el(`#key${sel}`).classList.add('low-visibility');
+      el(`#key${sel}`).classList.remove("low-visibility");
+    } else if (keyEvent === "ArrowUp") {
+      el(`#key${sel}`).classList.add("low-visibility");
       sel--;
-      if(sel < 0){
+      if (sel < 0) {
         sel = profilCount - 1;
       }
-      el(`#key${sel}`).classList.remove('low-visibility');
-    }else
-    if(keyEvent === 'Enter'){
-      el('#player').innerText = el(`#key${sel}`).innerText;
+      el(`#key${sel}`).classList.remove("low-visibility");
+    } else if (keyEvent === "Enter") {
+      el("#player").innerText = el(`#key${sel}`).innerText;
       globals.playerID = keys[sel];
       //console.log(globals.playerID);
       globals.layer = 2;
-      inputRouter('pioneer');
+      inputRouter("pioneer");
       sel = 0;
-    }else
-    if(keyEvent === 'Backspace'){
+    } else if (keyEvent === "Backspace") {
       db.deleteItem(keys[sel]);
-      el('#player').innerText = 'Guest';
+      el("#player").innerText = "Guest";
       globals.playerID = 0;
       sel = 0;
       globals.layer = 2;
-      inputRouter('pioneer');
+      inputRouter("pioneer");
     }
-
-    
-    
-
   }
-
 }
 
-export async function showProfil(keyEvent){
-  if(keyEvent==='pioneer'&& !globals.playerID){ ///go back when guest
+export async function showProfil(keyEvent) {
+  if (keyEvent === "pioneer" && !globals.playerID) {
+    ///go back when guest
     globals.layer = 5;
-    inputRouter('pioneer');
-  }else
-  if(keyEvent==='pioneer'&& globals.playerID){
-    el('#player').style.visibility = "hidden"; /// hide Player name
-     ///#############Select Object
+    inputRouter("pioneer");
+  } else if (keyEvent === "pioneer" && globals.playerID) {
+    el("#player").style.visibility = "hidden"; /// hide Player name
+    ///#############Select Object
     playerData = await db.readProfil(globals.playerID);
     //console.log(playerData);
     const textDate = generateTextDate(playerData.id);
-    const maxTypeSpeed = maxInGameHistory('averageSpeed');
-  const profilOptions = {
-    possCount    :  3,
-    option1      :  'show',
-    option2      :  'download',
-    option3      :  'menu'
-  }
-///#############Create Startpage
+    const maxTypeSpeed = maxInGameHistory("averageSpeed");
+    const profilOptions = {
+      possCount: 3,
+      option1: "show",
+      option2: "download",
+      option3: "menu",
+    };
+    ///#############Create Startpage
     // use Object to create the HTML
-    const html =`
+    const html = `
 <pre>
 <h1>History of Trainer ${playerData.name}</h1>
 <p>TypeTrainer since ${textDate}</p>
@@ -269,83 +256,65 @@ Max average typespeed: ${maxTypeSpeed}keys/sec</p>
 </pre>
   `;
 
-  el('#center-container').innerHTML = html;
+    el("#center-container").innerHTML = html;
 
-  selectOption(profilOptions,keyEvent);
-    
-  }else
-  if(chartActive){
-   // console.log('chartActive');
-     chartActive = false;
-     globals.layer = 8;
-     inputRouter('pioneer');
-  }
-  else{
-    const selOption = selectOption('',keyEvent);
-    if(selOption === 1){
-      if(playerData.games.length > 0){
-        const lastGameIndex = (playerData.games.length - 1);
-      displayLineChart(playerData.games[lastGameIndex],'chart-container');
-      el('#sel1').innerText = 'the';
-      chartActive = true;
-      el('#hideOptions').innerHTML='';
-      }else{
-        el('#sel1').innerText = 'no';
+    selectOption(profilOptions, keyEvent);
+  } else if (chartActive) {
+    // console.log('chartActive');
+    chartActive = false;
+    globals.layer = 8;
+    inputRouter("pioneer");
+  } else {
+    const selOption = selectOption("", keyEvent);
+    if (selOption === 1) {
+      if (playerData.games.length > 0) {
+        const lastGameIndex = playerData.games.length - 1;
+        displayLineChart(playerData.games[lastGameIndex], "chart-container");
+        el("#sel1").innerText = "the";
         chartActive = true;
-        el('#hideOptions').innerHTML='';
+        el("#hideOptions").innerHTML = "";
+      } else {
+        el("#sel1").innerText = "no";
+        chartActive = true;
+        el("#hideOptions").innerHTML = "";
       }
-      
+
       //globals.layer = 8;
-     // inputRouter('pioneer');
-    }else if(selOption === 2){
-      
-      el('#center-container').innerHTML = ''; //clear center container
+      // inputRouter('pioneer');
+    } else if (selOption === 2) {
+      el("#center-container").innerHTML = ""; //clear center container
       downloadObjectAsJson(playerData, `${playerData.name}.json`);
       globals.layer = 8;
-      inputRouter('pioneer');
-    }else if(selOption === 3){
-      
-      el('#center-container').innerHTML = ''; //clear center container
-      el('#player').style.visibility = "visible"; /// show Player name
+      inputRouter("pioneer");
+    } else if (selOption === 3) {
+      el("#center-container").innerHTML = ""; //clear center container
+      el("#player").style.visibility = "visible"; /// show Player name
       globals.layer = 2;
-      inputRouter('pioneer');
+      inputRouter("pioneer");
     }
   }
-  } 
+}
 
-export function updateProfil(playerID,resultObj){
+export function updateProfil(playerID, resultObj) {
   //console.log(playerID,resultObj);
-  db.updateGameHistory(playerID,resultObj);
-  if(resultObj.averageSpeed > 4 && resultObj.accuracy > 90){
-    db.updateMaxLvl(playerID,resultObj.level);
+  db.updateGameHistory(playerID, resultObj);
+  if (resultObj.averageSpeed > 4 && resultObj.accuracy > 90) {
+    db.updateMaxLvl(playerID, resultObj.level);
   }
- // db.addGameToProfil(playerID,resultObj);
-
+  // db.addGameToProfil(playerID,resultObj);
 }
 
-function maxInGameHistory(param){ //// finds max param in games history
+function maxInGameHistory(param) {
+  //// finds max param in games history
   let maxValue = 0;
-//console.log(data.games);
-playerData.games.forEach((obj) => {
-  const tempVaule = obj[param];
-  //console.log(tempVaule);
-  if(tempVaule > maxValue){
-        maxValue = tempVaule;
-      }
-});
-  //console.log(maxValue);
-  return maxValue;
-}
-
-function showMonsterList(){
-  globals.monDisp.forEach((box,index)=>{
-    if(box===1){
-      console.log(box+1,'seen');
-      el(`#monID${index+1}`).innerHTML= pickMonster(index+1);
-    }else if(box===2){
-      console.log(box+1,'own');
-      el(`#monID${index+1}`).innerHTML= pickMonster(index+1);
-      el(`#monID${index+1}`).classList.remove('low-visibility');
+  //console.log(data.games);
+  playerData.games.forEach((obj) => {
+    const tempVaule = obj[param];
+    //console.log(tempVaule);
+    if (tempVaule > maxValue) {
+      maxValue = tempVaule;
     }
   });
+  //console.log(maxValue);
+  return maxValue;
 }
