@@ -136,6 +136,7 @@ export function newProfil(keyEvent) {
       name,
       maxlvl: 1,
       games: [],
+      monster: [],
     };
     db.writeItem(profilID, profilObj);
     el("#player").innerText = name;
@@ -201,7 +202,10 @@ select          [←‾|
     } else if (keyEvent === "Enter") {
       el("#player").innerText = el(`#key${sel}`).innerText;
       globals.playerID = keys[sel];
-      //console.log(globals.playerID);
+      const profilData = await db.readProfil(keys[sel]);
+      //takes monter data when available
+      globals.monDisp = profilData.monster || [];
+      // console.log("Display", globals.monDisp);
       globals.layer = 2;
       inputRouter("pioneer");
       sel = 0;
@@ -302,6 +306,11 @@ export function updateProfil(playerID, resultObj) {
     db.updateMaxLvl(playerID, resultObj.level);
   }
   // db.addGameToProfil(playerID,resultObj);
+}
+
+export async function updateMonster(playerID, monsterID, monsterValue) {
+  const data = await db.readProfil(playerID);
+  db.updateMonsterArr(playerID, monsterID, monsterValue);
 }
 
 function maxInGameHistory(param) {

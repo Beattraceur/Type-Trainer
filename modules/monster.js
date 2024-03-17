@@ -59,6 +59,7 @@ export function pickMonster(id) {
       default:
         id = 1;
     }
+    globals.currentMon = id; ///set random mon as current mon in globals
   }
 
   switch (id) {
@@ -114,7 +115,7 @@ missing!
 }
 
 export function showMonsterList() {
-  console.log(globals.monDisp.length);
+  // console.log(globals.monDisp.length);
   for (let i = 0; i < monsterTotal; i++) {
     const boxState = globals.monDisp[i];
     switch (boxState) {

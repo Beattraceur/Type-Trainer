@@ -44,7 +44,8 @@ export const globals = {
   playerID: 0,
   layer: 1, ///Default:1////Change Startingpoint of App !4 too fast for JSON fetching!
   lvl: 1,
-  monDisp: [2, 1, 2],
+  monDisp: [], //1=seen 2=own
+  currentMon: 0,
   layout: "macDE",
   region: "DE",
   chartTextColor: "white",

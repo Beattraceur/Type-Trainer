@@ -345,7 +345,7 @@ export function updateTimer(questTimeLeft) {
 }
 
 export function generateMonBoxes() {
-  console.log("mon boxes");
+  // console.log("mon boxes");
   const boxGrid = create("div");
   const rows = monsterTotal / 6;
   let boxID = 1;
@@ -372,7 +372,7 @@ export function generateMonBoxes() {
     }
     boxGrid.append(boxRow);
   }
-  console.log(boxGrid);
+  // console.log(boxGrid);
   return boxGrid;
 }
 
