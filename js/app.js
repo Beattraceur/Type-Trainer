@@ -12,7 +12,7 @@
 /*     \ \ \\ \ \//\ \L\.\_\ \ \ /\ \/\ \ /\  __/\ \ \/  */
 /*      \ \_\\ \_\\ \__/.\_\\ \_\\ \_\ \_\\ \____\\ \_\  */
 /*       \/_/ \/_/ \/__/\/_/ \/_/ \/_/\/_/ \/____/ \/_/  */
-/*                                       by Benjamin Hahl*/ 
+/*                                       by Benjamin Hahl*/
 /*
   app.js
   Javascript entrypoint connected with index.html
@@ -28,39 +28,38 @@
   then it triggers the service-worker for pwa caching.
 */
 
-
-import { inputRouter, globals, serviceWorkerActiv } from "../modules/main.js";
-import { generateMouseOverlay } from "../modules/generator.js"
-import { loadKeyLayout, loadTypeLevel } from "../modules/load.js";
-import { el } from "../modules/lib.js";
+import { inputRouter, globals, serviceWorkerActiv } from '../modules/main.js';
+import { generateMouseOverlay } from '../modules/generator.js';
+import { loadKeyLayout, loadTypeLevel } from '../modules/load.js';
+import { el } from '../modules/lib.js';
 
 let overlayID = 0;
 
-// get and send keyEvent to main.js 
+// get and send keyEvent to main.js
 document.body.addEventListener('keydown', (event) => {
-  if(event.key === 'Shift'|| event.key === 'CapsLock'){return}; // silence Shift key presses
-  if(event.key === 'Escape'){
+  if (event.key === 'Shift' || event.key === 'CapsLock') {
+    return;
+  } // silence Shift key presses
+  if (event.key === 'Escape') {
     el('#center-container').innerHTML = ''; //clear center container
     clearInterval(globals.cursorID);
-  globals.layer = 2;
-  inputRouter('pioneer');
-  }; 
+    globals.layer = 2;
+    inputRouter('pioneer');
+  }
   inputRouter(event.key);
   //console.log(event.key);
 });
 
 document.addEventListener('click', () => {
-  
   clearTimeout(overlayID);
   const overlay = document.querySelector('#mouseOverlay');
   overlay.innerHTML = generateMouseOverlay();
   overlay.classList.add('on-visibility');
   overlay.classList.remove('off-visibility');
-  overlayID = setTimeout(removeOverlay,3000); /// removes the overlay after 3sec
-  
+  overlayID = setTimeout(removeOverlay, 3000); /// removes the overlay after 3sec
 });
 
-function removeOverlay(){
+function removeOverlay() {
   const overlay = document.querySelector('#mouseOverlay');
   overlay.innerHTML = '';
   overlay.classList.add('off-visibility');

@@ -12,7 +12,7 @@
 /*     \ \ \\ \ \//\ \L\.\_\ \ \ /\ \/\ \ /\  __/\ \ \/  */
 /*      \ \_\\ \_\\ \__/.\_\\ \_\\ \_\ \_\\ \____\\ \_\  */
 /*       \/_/ \/_/ \/__/\/_/ \/_/ \/_/\/_/ \/____/ \/_/  */
-/*                                       by Benjamin Hahl*/ 
+/*                                       by Benjamin Hahl*/
 /*
   theme.js
   allows the user to switch colors for optimizing the day
@@ -27,41 +27,40 @@
                    variables in root instead of using
                    classList.add and clasList.remove.
 */
-import { el } from "./lib.js";
-import { selectOption } from "./typeIt.js";
-import { globals,inputRouter } from "./main.js";
+import { el } from './lib.js';
+import { selectOption } from './typeIt.js';
+import { globals, inputRouter } from './main.js';
 
-
-export function dayOrNight(keyEvent){
+export function dayOrNight(keyEvent) {
   ///#############Setup Pioneer delivering needed Data
-  if (keyEvent === 'pioneer'){ //first call makes HTML
+  if (keyEvent === 'pioneer') {
+    //first call makes HTML
     //console.log('first call makes HTML');
     //give pioneer a mission
     ///#############Select Object
     const selDayNight = {
-      possCount    :  2,
-      request1     :  'type',
-      option1      :  'day',
-      request2     :  'or',
-      option2      :  'night'
-    }
-  ///#############Create Startpage
+      possCount: 2,
+      request1: 'type',
+      option1: 'day',
+      request2: 'or',
+      option2: 'night',
+    };
+    ///#############Create Startpage
     // use Object to create the HTML
-    const html =`
+    const html = `
 <span class="low-visibility">${selDayNight.request1}</span>    
 <span id="sel1" class="high-visibility"></span><span id="opt1" class="low-visibility">${selDayNight.option1}</span>    
 <span class="low-visibility">${selDayNight.request2}</span>    
 <span id="sel2" class="high-visibility"></span><span id="opt2" class="low-visibility">${selDayNight.option2}</span>        
 `;
 
-  el('#center-container').innerHTML = html;
-  
-  ///#############Waiting for User Select
-  selectOption(selDayNight,keyEvent);
-    
-  }else{
-    const themeMode = selectOption('',keyEvent);
-    if(themeMode === 1){
+    el('#center-container').innerHTML = html;
+
+    ///#############Waiting for User Select
+    selectOption(selDayNight, keyEvent);
+  } else {
+    const themeMode = selectOption('', keyEvent);
+    if (themeMode === 1) {
       //console.log('set DAYMODE');
       ///#############Change to Daymode
       // document.body.classList.add('day-mode');
@@ -74,7 +73,7 @@ export function dayOrNight(keyEvent){
       el('#center-container').innerHTML = ''; //clear center container
       globals.layer = 2;
       inputRouter('pioneer');
-    }else if(themeMode === 2){
+    } else if (themeMode === 2) {
       //console.log('set NIGHTMODE');
       ///#############Change to Nightmode
       // document.body.classList.add('night-mode');

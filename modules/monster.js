@@ -30,14 +30,14 @@
                     for the JSON-format.
 
 */
-import { el } from "./lib.js";
-import { globals } from "./main.js";
+import { el } from './lib.js';
+import { globals } from './main.js';
 
 export const monsterTotal = 18;
 
 export function pickMonster(id) {
   //console.log('MonsterID:', id);
-  let monsterHTML = "";
+  let monsterHTML = '';
   if (id === 0) {
     /// pick random monster for current globals.lvl
     switch (globals.lvl) {
@@ -121,11 +121,11 @@ export function showMonsterList() {
     switch (boxState) {
       case 1:
         el(`#monID${i + 1}`).innerHTML = pickMonster(i + 1);
-        el(`#monID${i + 1}`).classList.add("low-visibility");
+        el(`#monID${i + 1}`).classList.add('low-visibility');
         break;
       case 2:
         el(`#monID${i + 1}`).innerHTML = pickMonster(i + 1);
-        el(`#monID${i + 1}`).classList.remove("low-visibility");
+        el(`#monID${i + 1}`).classList.remove('low-visibility');
         break;
       default:
         el(`#monID${i + 1}`).innerHTML = `
@@ -137,7 +137,7 @@ export function showMonsterList() {
  (_) 
 </pre>
               `;
-        el(`#monID${i + 1}`).classList.add("low-visibility");
+        el(`#monID${i + 1}`).classList.add('low-visibility');
     }
   }
 }

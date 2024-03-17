@@ -30,27 +30,31 @@
                       set of typeArray's for the respective layout.                     
   
 */
-import { loadJSON } from "./lib.js";
-import { globals } from "./main.js";
+import { loadJSON } from './lib.js';
+import { globals } from './main.js';
 
 export let keyLayout = {};
 export let typeLevel = {};
 export let symObj = {};
 export let symShiftObj = {};
 
-export async function loadKeyLayout(){
+export async function loadKeyLayout() {
   keyLayout = await loadJSON(`../data/${globals.layout}.json`);
-  
-  Object.keys(keyLayout).forEach((key)=>{
+
+  Object.keys(keyLayout).forEach((key) => {
     const tempArr = keyLayout[key];
-    if(tempArr[0].length > 0){symObj[tempArr[0]] = key;} /// skipping empty entrys
-    if(tempArr[1].length > 0){symShiftObj[tempArr[1]] = key;}
+    if (tempArr[0].length > 0) {
+      symObj[tempArr[0]] = key;
+    } /// skipping empty entrys
+    if (tempArr[1].length > 0) {
+      symShiftObj[tempArr[1]] = key;
+    }
   });
   // console.log(symObj);
   // console.log(symShiftObj);
   // console.log(keyLayout);
 }
-export async function loadTypeLevel(){
+export async function loadTypeLevel() {
   typeLevel = await loadJSON(`../data/typeLevel${globals.region}.json`);
   //console.log(typeLevel);
 }

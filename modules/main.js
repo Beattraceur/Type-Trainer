@@ -33,11 +33,11 @@
   serviceWorkerActiv() ... initialize the service-worker to
                            cache for offline install as pwa.                  
 */
-import { dayOrNight } from "./theme.js";
-import { mainMenu } from "./menu.js";
-import { settings, changeKeyboardLayout } from "./settings.js";
-import { typeMission } from "./mission.js";
-import { newProfil, selProfil, loadProfil, showProfil } from "./profil.js";
+import { dayOrNight } from './theme.js';
+import { mainMenu } from './menu.js';
+import { settings, changeKeyboardLayout } from './settings.js';
+import { typeMission } from './mission.js';
+import { newProfil, selProfil, loadProfil, showProfil } from './profil.js';
 
 //######Function select for router
 export const globals = {
@@ -46,10 +46,10 @@ export const globals = {
   lvl: 1,
   monDisp: [], //1=seen 2=own
   currentMon: 0,
-  layout: "macDE",
-  region: "DE",
-  chartTextColor: "white",
-  chartGridColor: "grey",
+  layout: 'macDE',
+  region: 'DE',
+  chartTextColor: 'white',
+  chartGridColor: 'grey',
   cursorID: 0,
 };
 
@@ -87,12 +87,12 @@ export function inputRouter(keyEvent) {
       changeKeyboardLayout(keyEvent);
       break;
     default:
-      console.log("UserInput: ", keyEvent);
+      console.log('UserInput: ', keyEvent);
   }
 }
 
 export function serviceWorkerActiv() {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("../service-worker.js", { scope: "./" });
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('../service-worker.js', { scope: './' });
   }
 }

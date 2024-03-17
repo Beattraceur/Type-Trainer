@@ -58,10 +58,10 @@
                              the progress.
                              #### restore fct() not yet implemented ####
 */
-import { el, create } from "./lib.js";
-import { globals } from "./main.js";
-import { pickMonster, monsterTotal } from "./monster.js";
-import { symObj, symShiftObj, typeLevel } from "./load.js";
+import { el, create } from './lib.js';
+import { globals } from './main.js';
+import { pickMonster, monsterTotal } from './monster.js';
+import { symObj, symShiftObj, typeLevel } from './load.js';
 
 export function generateArena() {
   ///generates Template for typequest
@@ -70,31 +70,31 @@ export function generateArena() {
   const keyboardHTML = displayKeyboard(); //get a template keyboard
   ///console.log(keyboardHTML);
   ///create Arena with components
-  const arena = create("div");
-  arena.setAttribute("id", "arena");
-  const questLine = create("div");
-  questLine.setAttribute("id", "questLine");
-  const arenaTop = create("div");
-  arenaTop.setAttribute("id", "arenaTop");
-  const questParagraph = create("p");
-  questParagraph.setAttribute("id", "questParagraph");
-  const textVignette = create("div");
-  textVignette.setAttribute("id", "textVignette");
-  const past = create("span");
-  past.setAttribute("id", "typePast");
-  past.setAttribute("class", "low-visibility");
-  const error = create("span");
-  error.setAttribute("id", "typeError");
-  error.setAttribute("class", "error");
-  const cursor = create("span");
-  cursor.setAttribute("id", "cursor");
-  cursor.innerText = "|";
-  const present = create("span");
-  present.setAttribute("id", "typePresent");
-  present.setAttribute("class", "high-visibility");
-  const future = create("span");
-  future.setAttribute("id", "typeFuture");
-  future.setAttribute("class", "mid-visibility");
+  const arena = create('div');
+  arena.setAttribute('id', 'arena');
+  const questLine = create('div');
+  questLine.setAttribute('id', 'questLine');
+  const arenaTop = create('div');
+  arenaTop.setAttribute('id', 'arenaTop');
+  const questParagraph = create('p');
+  questParagraph.setAttribute('id', 'questParagraph');
+  const textVignette = create('div');
+  textVignette.setAttribute('id', 'textVignette');
+  const past = create('span');
+  past.setAttribute('id', 'typePast');
+  past.setAttribute('class', 'low-visibility');
+  const error = create('span');
+  error.setAttribute('id', 'typeError');
+  error.setAttribute('class', 'error');
+  const cursor = create('span');
+  cursor.setAttribute('id', 'cursor');
+  cursor.innerText = '|';
+  const present = create('span');
+  present.setAttribute('id', 'typePresent');
+  present.setAttribute('class', 'high-visibility');
+  const future = create('span');
+  future.setAttribute('id', 'typeFuture');
+  future.setAttribute('class', 'mid-visibility');
   questParagraph.append(past);
   questParagraph.append(error);
   questParagraph.append(cursor);
@@ -102,20 +102,20 @@ export function generateArena() {
   questParagraph.append(future);
   questLine.append(questParagraph);
   questLine.append(textVignette);
-  const monsterBox = create("div");
-  monsterBox.setAttribute("id", "monsterBox");
-  const timer = create("div");
-  timer.setAttribute("id", "timer");
-  timer.innerHTML = "00:00";
-  const monster = create("div");
-  monster.setAttribute("id", "monster");
+  const monsterBox = create('div');
+  monsterBox.setAttribute('id', 'monsterBox');
+  const timer = create('div');
+  timer.setAttribute('id', 'timer');
+  timer.innerHTML = '00:00';
+  const monster = create('div');
+  monster.setAttribute('id', 'monster');
   monster.innerHTML = monsterHTML;
   monsterBox.append(timer);
   monsterBox.append(monster);
   arenaTop.append(questLine);
   arenaTop.append(monsterBox);
-  const arenaBottom = create("div");
-  arenaBottom.setAttribute("id", "arenaBottom");
+  const arenaBottom = create('div');
+  arenaBottom.setAttribute('id', 'arenaBottom');
   arenaBottom.append(keyboardHTML);
   arena.append(arenaTop);
   arena.append(arenaBottom);
@@ -138,7 +138,7 @@ export function generateQuestArr() {
     for (let i = 0; i < 3; i++) {
       longArr.push(symbolArr[rndPick]);
     }
-    longArr.push(" "); //Space between words
+    longArr.push(' '); //Space between words
   }
   return longArr; /// return finished quest array
 }
@@ -153,9 +153,9 @@ export function generateActiveKeyArr(questArr) {
       activeKeyArr.push([symObj[sym]]);
     } else if (symShiftObj[sym]) {
       //console.log('SHIFT');
-      activeKeyArr.push([symShiftObj[sym], "key41", "key53"]);
+      activeKeyArr.push([symShiftObj[sym], 'key41', 'key53']);
     } else {
-      console.log(sym, "not found");
+      console.log(sym, 'not found');
     }
   });
 
@@ -173,10 +173,10 @@ export function displayLineChart(data, containerElement) {
     `#${containerElement}`
   ).innerHTML = `<div id="canvasholder"><canvas id = "canvas"></canvas></div>`;
   // console.log(resultObj);
-  const ctx = el("#canvas");
+  const ctx = el('#canvas');
 
   new Chart(ctx, {
-    type: "line",
+    type: 'line',
     data: {
       labels: data.typedArr,
       datasets: [
@@ -184,8 +184,8 @@ export function displayLineChart(data, containerElement) {
           label: "Typespeed in key's per sec",
           data: data.typeSpeedArr,
           borderWidth: 3,
-          borderColor: "lightseagreen",
-          backgroundColor: "lightseagreen",
+          borderColor: 'lightseagreen',
+          backgroundColor: 'lightseagreen',
         },
       ],
     },
@@ -194,7 +194,7 @@ export function displayLineChart(data, containerElement) {
         // 'legend' now within object 'plugins {}'
         legend: {
           labels: {
-            color: "lightseagreen", // not 'fontColor:' anymore
+            color: 'lightseagreen', // not 'fontColor:' anymore
             // fontSize: 18  // not 'fontSize:' anymore
             font: {
               size: 16, // 'size' now within object 'font {}'
@@ -234,73 +234,73 @@ export function displayLineChart(data, containerElement) {
 }
 
 function displayKeyboard() {
-  const keyboard = create("div");
-  const keyRow0 = create("div");
-  keyRow0.setAttribute("id", "row");
-  let label = "";
+  const keyboard = create('div');
+  const keyRow0 = create('div');
+  keyRow0.setAttribute('id', 'row');
+  let label = '';
   let i = 0;
   for (i; i < 14; i++) {
-    label = create("label");
-    label.setAttribute("id", `key${i}`);
-    label.innerText = "k";
+    label = create('label');
+    label.setAttribute('id', `key${i}`);
+    label.innerText = 'k';
     keyRow0.append(label);
   }
   keyboard.append(keyRow0);
-  const keyRow1 = create("div");
-  keyRow1.setAttribute("id", "row");
+  const keyRow1 = create('div');
+  keyRow1.setAttribute('id', 'row');
   for (i; i < 28; i++) {
-    label = create("label");
-    label.setAttribute("id", `key${i}`);
-    label.innerText = "k";
+    label = create('label');
+    label.setAttribute('id', `key${i}`);
+    label.innerText = 'k';
     keyRow1.append(label);
   }
 
   keyboard.append(keyRow1);
 
-  const keyRow2 = create("div");
-  keyRow2.setAttribute("id", "row");
+  const keyRow2 = create('div');
+  keyRow2.setAttribute('id', 'row');
   for (i; i < 41; i++) {
-    label = create("label");
-    label.setAttribute("id", `key${i}`);
-    label.innerText = "k";
+    label = create('label');
+    label.setAttribute('id', `key${i}`);
+    label.innerText = 'k';
     keyRow2.append(label);
   }
   ///####Bottom Enter
 
-  label = create("label");
-  label.setAttribute("class", "enterBottom");
-  const underlayL = create("div");
-  underlayL.setAttribute("class", "enterMidBackL");
+  label = create('label');
+  label.setAttribute('class', 'enterBottom');
+  const underlayL = create('div');
+  underlayL.setAttribute('class', 'enterMidBackL');
   label.append(underlayL);
-  const underlayR = create("div");
-  underlayR.setAttribute("class", "enterMidBackR");
+  const underlayR = create('div');
+  underlayR.setAttribute('class', 'enterMidBackR');
   label.append(underlayR);
-  const overlay = create("div");
-  overlay.setAttribute("class", "enterMid");
+  const overlay = create('div');
+  overlay.setAttribute('class', 'enterMid');
   label.append(overlay);
   keyRow2.append(label);
   keyboard.append(keyRow2);
   ///###
-  const keyRow3 = create("div");
-  keyRow3.setAttribute("id", "row");
+  const keyRow3 = create('div');
+  keyRow3.setAttribute('id', 'row');
   for (i; i < 54; i++) {
-    label = create("label");
-    label.setAttribute("id", `key${i}`);
-    label.innerText = "k";
+    label = create('label');
+    label.setAttribute('id', `key${i}`);
+    label.innerText = 'k';
     keyRow3.append(label);
   }
   keyboard.append(keyRow3);
-  const keyRow4 = create("div");
-  keyRow4.setAttribute("id", "row");
+  const keyRow4 = create('div');
+  keyRow4.setAttribute('id', 'row');
   for (i; i < 61; i++) {
-    label = create("label");
-    label.setAttribute("id", `key${i}`);
-    label.innerText = "k";
+    label = create('label');
+    label.setAttribute('id', `key${i}`);
+    label.innerText = 'k';
     keyRow4.append(label);
   }
   keyboard.append(keyRow4);
 
-  keyboard.setAttribute("id", "keyboard-container");
+  keyboard.setAttribute('id', 'keyboard-container');
 
   return keyboard;
 }
@@ -339,23 +339,23 @@ export function updateTimer(questTimeLeft) {
   const timeLeft = new Date(questTimeLeft);
   const minutes = timeLeft.getMinutes();
   const seconds = timeLeft.getSeconds();
-  el("#timer").innerText = `${minutes.toString().padStart(2, "0")}:${seconds
+  el('#timer').innerText = `${minutes.toString().padStart(2, '0')}:${seconds
     .toString()
-    .padStart(2, "0")}`;
+    .padStart(2, '0')}`;
 }
 
 export function generateMonBoxes() {
   // console.log("mon boxes");
-  const boxGrid = create("div");
+  const boxGrid = create('div');
   const rows = monsterTotal / 6;
   let boxID = 1;
   for (let i = 0; i < rows; i++) {
-    const boxRow = create("div");
-    boxRow.setAttribute("class", "boxRow");
+    const boxRow = create('div');
+    boxRow.setAttribute('class', 'boxRow');
     for (let i = 0; i < 6; i++) {
-      const monBox = create("div");
-      monBox.setAttribute("id", `box${boxID}`);
-      monBox.setAttribute("class", `monbox`);
+      const monBox = create('div');
+      monBox.setAttribute('id', `box${boxID}`);
+      monBox.setAttribute('class', `monbox`);
       monBox.innerHTML = `<div id="monID${boxID}" class="monDisplay"> soon more...</div>
 <pre class='frame'>
 |‾‾‾‾‾‾‾‾‾‾‾‾‾‾|
@@ -388,20 +388,20 @@ export function generateTextDate(timeStamp) {
   const minutes = currentDate.getMinutes();
   const seconds = currentDate.getSeconds();
   // Format the date as desired
-  const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
+  const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day
     .toString()
-    .padStart(2, "0")} ${hours.toString().padStart(2, "0")}:${minutes
+    .padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes
     .toString()
-    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
   return formattedDate;
 }
 ///AI generated ############################ JSON-Downloader
 export function downloadObjectAsJson(object, fileName) {
   const json = JSON.stringify(object);
-  const blob = new Blob([json], { type: "application/json" });
+  const blob = new Blob([json], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
+  const a = document.createElement('a');
   a.href = url;
   a.download = fileName;
   document.body.appendChild(a);

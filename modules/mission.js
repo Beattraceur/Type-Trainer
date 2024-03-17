@@ -29,34 +29,43 @@
                     it gives the pioneer a data package as backpack
                     and guide him to the actual typeQuest.
 */
-import { el } from "./lib.js";
-import { generateArena, generateQuestArr, generateActiveKeyArr } from "./generator.js";
-import { keyLayout } from "./load.js";
-import { typeQuest } from "./typeIt.js";
+import { el } from './lib.js';
+import {
+  generateArena,
+  generateQuestArr,
+  generateActiveKeyArr,
+} from './generator.js';
+import { keyLayout } from './load.js';
+import { typeQuest } from './typeIt.js';
 
-export function typeMission(keyEvent){
+export function typeMission(keyEvent) {
   //console.log('Mission start',lvl,keyEvent);
-  if(keyEvent==='pioneer'){
+  if (keyEvent === 'pioneer') {
     //console.log('pioneer');
     const arena = generateArena();
     el('#center-container').append(arena);
 
-    const keys = Object.keys(keyLayout);  //Map Key Names
-    keys.forEach((key,i) =>{
-     const name = keyLayout[key];
-     //console.log(i);
-    if(( i >= 15 && i <= 25) || ( i >= 29 && i <= 39) || ( i >= 43 && i <= 49)){ //show letters in UpperCase
-      el(`#${key}`).innerText = name[0].toUpperCase();
-    }else{
-      el(`#${key}`).innerText = name[0] + ' ' + name[1];
-    }
-   })
-   const questArr = generateQuestArr();
-   const activeKeyArr = generateActiveKeyArr(questArr); /// get active key infos from questArray
-   //console.log(activeKeyArr);
-    typeQuest(questArr,activeKeyArr,keyEvent);
+    const keys = Object.keys(keyLayout); //Map Key Names
+    keys.forEach((key, i) => {
+      const name = keyLayout[key];
+      //console.log(i);
+      if (
+        (i >= 15 && i <= 25) ||
+        (i >= 29 && i <= 39) ||
+        (i >= 43 && i <= 49)
+      ) {
+        //show letters in UpperCase
+        el(`#${key}`).innerText = name[0].toUpperCase();
+      } else {
+        el(`#${key}`).innerText = name[0] + ' ' + name[1];
+      }
+    });
+    const questArr = generateQuestArr();
+    const activeKeyArr = generateActiveKeyArr(questArr); /// get active key infos from questArray
+    //console.log(activeKeyArr);
+    typeQuest(questArr, activeKeyArr, keyEvent);
     //console.log(arena);
-  }else{
-    typeQuest('','',keyEvent);
+  } else {
+    typeQuest('', '', keyEvent);
   }
 }

@@ -29,17 +29,17 @@
   clearQuestObject() ... resets the global object that is used in typeQuest().
   blinkCursor() ...      blinks the cursor in mission and updates the mission timer.
 */
-import { el } from "./lib.js";
-import { displayLineChart, updateTimer } from "./generator.js";
-import { globals, inputRouter } from "./main.js";
-import { updateProfil, updateMonster } from "./profil.js";
+import { el } from './lib.js';
+import { displayLineChart, updateTimer } from './generator.js';
+import { globals, inputRouter } from './main.js';
+import { updateProfil, updateMonster } from './profil.js';
 
 ///############# Use global variables to store delivered Data and TestArrays
 let storedOption = {};
 let timeLeft = 0;
 let delayID = 0; /// disable fast input after session
 let delayDone = false;
-let activeChar = "";
+let activeChar = '';
 let lastActiveKey = [];
 //global object that is used in typeQuest()
 const questStorage = {
@@ -67,10 +67,10 @@ const selTest = {
 
 function updateKeyboard() {
   lastActiveKey.forEach((key) => {
-    el(`#${key}`).classList.remove("activeKey");
+    el(`#${key}`).classList.remove('activeKey');
   });
   questStorage.actKeyArr[0].forEach((key) => {
-    el(`#${key}`).classList.add("activeKey");
+    el(`#${key}`).classList.add('activeKey');
   });
   lastActiveKey = questStorage.actKeyArr[0];
   questStorage.actKeyArr.shift();
@@ -78,11 +78,11 @@ function updateKeyboard() {
 }
 
 export function typeQuest(questArr, activeKeyArr, keyEvent) {
-  if (keyEvent === "pioneer") {
+  if (keyEvent === 'pioneer') {
     ///first call of typeQuest
     questStorage.startArr = questArr;
     questStorage.actKeyArr = activeKeyArr;
-    el("#typeFuture").innerText = questStorage.startArr.join("");
+    el('#typeFuture').innerText = questStorage.startArr.join('');
     clearInterval(globals.cursorID);
     ///Check if actual mon is new or known by the player
     if (globals.playerID > 0) {
@@ -95,7 +95,7 @@ export function typeQuest(questArr, activeKeyArr, keyEvent) {
       }
     }
 
-    el("#key57").innerText = "start Mission...";
+    el('#key57').innerText = 'start Mission...';
     questStorage.questEnded = false;
     delayDone = false;
     updateTimer(questStorage.timer);
@@ -103,15 +103,15 @@ export function typeQuest(questArr, activeKeyArr, keyEvent) {
   ///############# User Mission Start
   else if (
     !questStorage.runningQuest &&
-    keyEvent === " " &&
+    keyEvent === ' ' &&
     !questStorage.questEnded
   ) {
-    el("#key57").innerText = "";
+    el('#key57').innerText = '';
     //console.log('start');
     questStorage.runningQuest = true;
     activeChar = questStorage.startArr.shift();
-    el("#typeFuture").innerText = questStorage.startArr.join("");
-    el("#typePresent").innerText = activeChar;
+    el('#typeFuture').innerText = questStorage.startArr.join('');
+    el('#typePresent').innerText = activeChar;
     updateKeyboard();
     questStorage.timeArr.push(Date.now());
     questStorage.endTime = Date.now() + questStorage.timer;
@@ -136,22 +136,22 @@ export function typeQuest(questArr, activeKeyArr, keyEvent) {
       updateKeyboard();
       questStorage.pastArr.push(activeChar);
       activeChar = questStorage.startArr.shift();
-      el("#typeError").innerText = "";
-      el("#typeFuture").innerText = questStorage.startArr.join("");
-      el("#typePresent").innerText = activeChar;
-      el("#typePast").innerText = questStorage.pastArr.join("");
+      el('#typeError').innerText = '';
+      el('#typeFuture').innerText = questStorage.startArr.join('');
+      el('#typePresent').innerText = activeChar;
+      el('#typePast').innerText = questStorage.pastArr.join('');
       questStorage.timeArr.push(Date.now());
       // console.log(questStorage.timeArr);
     } else {
       // instead of activeChar user typed keyEvent
       questStorage.errorArr.push([activeChar, keyEvent]);
-      el("#typeError").innerText = keyEvent;
+      el('#typeError').innerText = keyEvent;
       //  console.log('asked for:',activeChar,'but entered',keyEvent);
     }
   } else if (questStorage.questEnded && delayDone) {
     ///go to menu when typing but only if delay has passed
     globals.layer = 2;
-    inputRouter("pioneer");
+    inputRouter('pioneer');
   } else {
     // console.log('press space to start');
   }
@@ -167,7 +167,7 @@ function displayResult() {
     accuracy: 0,
     errorArr: questStorage.errorArr,
   };
-  el("#timer").innerText = "";
+  el('#timer').innerText = '';
   let sum = 0;
 
   questStorage.pastArr.forEach((char, i) => {
@@ -190,14 +190,14 @@ function displayResult() {
   resultObj.averageSpeed =
     Math.round((sum / questStorage.pastArr.length) * 100) / 100;
   //console.log(sum);
-  el("#questLine").innerHTML = `
+  el('#questLine').innerHTML = `
 <h3>Result:</h3>
 <p>Total hits: ${questStorage.pastArr.length}<br>  
 Wrong key's: ${questStorage.errorArr.length}</p>  
 <p>Average type speed: ${resultObj.averageSpeed}keys/sec<br>  
 Accuracy: ${resultObj.accuracy}%</p>  
 `;
-  displayLineChart(resultObj, "keyboard-container");
+  displayLineChart(resultObj, 'keyboard-container');
 
   // console.log('acc:', resultObj.accuracy);
   if (globals.playerID) {
@@ -214,26 +214,26 @@ Accuracy: ${resultObj.accuracy}%</p>
 
 export function selectOption(options, keyEvent) {
   ///#############Pioneer Data delivery
-  if (keyEvent === "pioneer") {
+  if (keyEvent === 'pioneer') {
     storedOption = options;
     switch (storedOption.possCount) {
       case 2:
         //console.log('zwei');
         ///make two global testArrays in const selTest
-        selTest.opt1Arr = storedOption.option1.split("");
-        selTest.opt2Arr = storedOption.option2.split("");
+        selTest.opt1Arr = storedOption.option1.split('');
+        selTest.opt2Arr = storedOption.option2.split('');
         // console.log(selTest.opt1Arr);
         // console.log(selTest.opt2Arr);
         break;
       case 3:
         //console.log('drei');
-        selTest.opt1Arr = storedOption.option1.split("");
-        selTest.opt2Arr = storedOption.option2.split("");
-        selTest.opt3Arr = storedOption.option3.split("");
+        selTest.opt1Arr = storedOption.option1.split('');
+        selTest.opt2Arr = storedOption.option2.split('');
+        selTest.opt3Arr = storedOption.option3.split('');
         break;
 
       default:
-        console.log("error: wrong possCount in storedOption-Object");
+        console.log('error: wrong possCount in storedOption-Object');
     }
   } else {
     ///############# Handle User Input
@@ -249,8 +249,8 @@ export function selectOption(options, keyEvent) {
             selTest.currentSel = 1;
             selTest.activeArr = selTest.opt1Arr.slice();
             selTest.opt1ArrPassive.push(selTest.activeArr.shift()); //remove first value
-            el("#opt1").innerText = selTest.activeArr.join("");
-            el("#sel1").innerText = selTest.opt1ArrPassive[0];
+            el('#opt1').innerText = selTest.activeArr.join('');
+            el('#sel1').innerText = selTest.opt1ArrPassive[0];
           }
           ///############# Set test for second option as active
           else if (keyEvent === selTest.opt2Arr[0]) {
@@ -258,8 +258,8 @@ export function selectOption(options, keyEvent) {
             selTest.currentSel = 2;
             selTest.activeArr = selTest.opt2Arr.slice();
             selTest.opt2ArrPassive.push(selTest.activeArr.shift()); //remove first value
-            el("#opt2").innerText = selTest.activeArr.join("");
-            el("#sel2").innerText = selTest.opt2ArrPassive[0];
+            el('#opt2').innerText = selTest.activeArr.join('');
+            el('#sel2').innerText = selTest.opt2ArrPassive[0];
           }
         } else if (selTest.currentSel === 1) {
           ///############# Switch select from Option1 to Option2
@@ -268,16 +268,16 @@ export function selectOption(options, keyEvent) {
             selTest.activeArr = selTest.opt2Arr.slice();
             selTest.opt1ArrPassive = [];
             selTest.opt2ArrPassive.push(selTest.activeArr.shift());
-            el("#opt1").innerText = storedOption.option1;
-            el("#sel1").innerText = "";
-            el("#opt2").innerText = selTest.activeArr.join("");
-            el("#sel2").innerText = selTest.opt2ArrPassive[0];
+            el('#opt1').innerText = storedOption.option1;
+            el('#sel1').innerText = '';
+            el('#opt2').innerText = selTest.activeArr.join('');
+            el('#sel2').innerText = selTest.opt2ArrPassive[0];
           }
           ///############# Stay with Option1
           else if (keyEvent === selTest.activeArr[0]) {
             selTest.opt1ArrPassive.push(selTest.activeArr.shift()); //remove first value
-            el("#opt1").innerText = selTest.activeArr.join("");
-            el("#sel1").innerText = selTest.opt1ArrPassive.join("");
+            el('#opt1').innerText = selTest.activeArr.join('');
+            el('#sel1').innerText = selTest.opt1ArrPassive.join('');
             if (selTest.opt1ArrPassive.length === selTest.opt1Arr.length) {
               ///############# Finish as option 1
               //console.log('OPTION1');
@@ -297,16 +297,16 @@ export function selectOption(options, keyEvent) {
             selTest.activeArr = selTest.opt1Arr.slice();
             selTest.opt2ArrPassive = [];
             selTest.opt1ArrPassive.push(selTest.activeArr.shift());
-            el("#opt2").innerText = storedOption.option2;
-            el("#sel2").innerText = "";
-            el("#opt1").innerText = selTest.activeArr.join("");
-            el("#sel1").innerText = selTest.opt1ArrPassive[0];
+            el('#opt2').innerText = storedOption.option2;
+            el('#sel2').innerText = '';
+            el('#opt1').innerText = selTest.activeArr.join('');
+            el('#sel1').innerText = selTest.opt1ArrPassive[0];
           }
           ///############# Stay with Option2
           else if (keyEvent === selTest.activeArr[0]) {
             selTest.opt2ArrPassive.push(selTest.activeArr.shift()); //remove first value
-            el("#opt2").innerText = selTest.activeArr.join("");
-            el("#sel2").innerText = selTest.opt2ArrPassive.join("");
+            el('#opt2').innerText = selTest.activeArr.join('');
+            el('#sel2').innerText = selTest.opt2ArrPassive.join('');
             if (selTest.opt2ArrPassive.length === selTest.opt2Arr.length) {
               ///############# Finish as option 2
               //console.log('OPTION2');
@@ -330,8 +330,8 @@ export function selectOption(options, keyEvent) {
             selTest.currentSel = 1;
             selTest.activeArr = selTest.opt1Arr.slice();
             selTest.opt1ArrPassive.push(selTest.activeArr.shift()); //remove first value
-            el("#opt1").innerText = selTest.activeArr.join("");
-            el("#sel1").innerText = selTest.opt1ArrPassive[0];
+            el('#opt1').innerText = selTest.activeArr.join('');
+            el('#sel1').innerText = selTest.opt1ArrPassive[0];
           }
           ///############# Set test for second option as active
           else if (keyEvent === selTest.opt2Arr[0]) {
@@ -339,8 +339,8 @@ export function selectOption(options, keyEvent) {
             selTest.currentSel = 2;
             selTest.activeArr = selTest.opt2Arr.slice();
             selTest.opt2ArrPassive.push(selTest.activeArr.shift()); //remove first value
-            el("#opt2").innerText = selTest.activeArr.join("");
-            el("#sel2").innerText = selTest.opt2ArrPassive[0];
+            el('#opt2').innerText = selTest.activeArr.join('');
+            el('#sel2').innerText = selTest.opt2ArrPassive[0];
           }
           ///############# Set test for third option as active
           else if (keyEvent === selTest.opt3Arr[0]) {
@@ -348,8 +348,8 @@ export function selectOption(options, keyEvent) {
             selTest.currentSel = 3;
             selTest.activeArr = selTest.opt3Arr.slice();
             selTest.opt3ArrPassive.push(selTest.activeArr.shift()); //remove first value
-            el("#opt3").innerText = selTest.activeArr.join("");
-            el("#sel3").innerText = selTest.opt3ArrPassive[0];
+            el('#opt3').innerText = selTest.activeArr.join('');
+            el('#sel3').innerText = selTest.opt3ArrPassive[0];
           }
         } else if (selTest.currentSel === 1) {
           ///############# Switch select from Option1 to Option2
@@ -358,10 +358,10 @@ export function selectOption(options, keyEvent) {
             selTest.activeArr = selTest.opt2Arr.slice();
             selTest.opt1ArrPassive = [];
             selTest.opt2ArrPassive.push(selTest.activeArr.shift());
-            el("#opt1").innerText = storedOption.option1;
-            el("#sel1").innerText = "";
-            el("#opt2").innerText = selTest.activeArr.join("");
-            el("#sel2").innerText = selTest.opt2ArrPassive[0];
+            el('#opt1').innerText = storedOption.option1;
+            el('#sel1').innerText = '';
+            el('#opt2').innerText = selTest.activeArr.join('');
+            el('#sel2').innerText = selTest.opt2ArrPassive[0];
           }
           ///############# Switch select from Option1 to Option3
           else if (keyEvent === selTest.opt3Arr[0]) {
@@ -369,16 +369,16 @@ export function selectOption(options, keyEvent) {
             selTest.activeArr = selTest.opt3Arr.slice();
             selTest.opt1ArrPassive = [];
             selTest.opt3ArrPassive.push(selTest.activeArr.shift());
-            el("#opt1").innerText = storedOption.option1;
-            el("#sel1").innerText = "";
-            el("#opt3").innerText = selTest.activeArr.join("");
-            el("#sel3").innerText = selTest.opt3ArrPassive[0];
+            el('#opt1').innerText = storedOption.option1;
+            el('#sel1').innerText = '';
+            el('#opt3').innerText = selTest.activeArr.join('');
+            el('#sel3').innerText = selTest.opt3ArrPassive[0];
           }
           ///############# Stay with Option1
           else if (keyEvent === selTest.activeArr[0]) {
             selTest.opt1ArrPassive.push(selTest.activeArr.shift()); //remove first value
-            el("#opt1").innerText = selTest.activeArr.join("");
-            el("#sel1").innerText = selTest.opt1ArrPassive.join("");
+            el('#opt1').innerText = selTest.activeArr.join('');
+            el('#sel1').innerText = selTest.opt1ArrPassive.join('');
             if (selTest.opt1ArrPassive.length === selTest.opt1Arr.length) {
               ///############# Finish as option 1
               //console.log('OPTION1');
@@ -398,10 +398,10 @@ export function selectOption(options, keyEvent) {
             selTest.activeArr = selTest.opt1Arr.slice();
             selTest.opt2ArrPassive = [];
             selTest.opt1ArrPassive.push(selTest.activeArr.shift());
-            el("#opt2").innerText = storedOption.option2;
-            el("#sel2").innerText = "";
-            el("#opt1").innerText = selTest.activeArr.join("");
-            el("#sel1").innerText = selTest.opt1ArrPassive[0];
+            el('#opt2').innerText = storedOption.option2;
+            el('#sel2').innerText = '';
+            el('#opt1').innerText = selTest.activeArr.join('');
+            el('#sel1').innerText = selTest.opt1ArrPassive[0];
           }
           ///############# Switch select from Option2 to Option3
           else if (keyEvent === selTest.opt3Arr[0]) {
@@ -409,16 +409,16 @@ export function selectOption(options, keyEvent) {
             selTest.activeArr = selTest.opt3Arr.slice();
             selTest.opt2ArrPassive = [];
             selTest.opt3ArrPassive.push(selTest.activeArr.shift());
-            el("#opt2").innerText = storedOption.option2;
-            el("#sel2").innerText = "";
-            el("#opt3").innerText = selTest.activeArr.join("");
-            el("#sel3").innerText = selTest.opt3ArrPassive[0];
+            el('#opt2').innerText = storedOption.option2;
+            el('#sel2').innerText = '';
+            el('#opt3').innerText = selTest.activeArr.join('');
+            el('#sel3').innerText = selTest.opt3ArrPassive[0];
           }
           ///############# Stay with Option2
           else if (keyEvent === selTest.activeArr[0]) {
             selTest.opt2ArrPassive.push(selTest.activeArr.shift()); //remove first value
-            el("#opt2").innerText = selTest.activeArr.join("");
-            el("#sel2").innerText = selTest.opt2ArrPassive.join("");
+            el('#opt2').innerText = selTest.activeArr.join('');
+            el('#sel2').innerText = selTest.opt2ArrPassive.join('');
             if (selTest.opt2ArrPassive.length === selTest.opt2Arr.length) {
               ///############# Finish as option 2
               //console.log('OPTION2');
@@ -438,10 +438,10 @@ export function selectOption(options, keyEvent) {
             selTest.activeArr = selTest.opt1Arr.slice();
             selTest.opt3ArrPassive = [];
             selTest.opt1ArrPassive.push(selTest.activeArr.shift());
-            el("#opt3").innerText = storedOption.option3;
-            el("#sel3").innerText = "";
-            el("#opt1").innerText = selTest.activeArr.join("");
-            el("#sel1").innerText = selTest.opt1ArrPassive[0];
+            el('#opt3').innerText = storedOption.option3;
+            el('#sel3').innerText = '';
+            el('#opt1').innerText = selTest.activeArr.join('');
+            el('#sel1').innerText = selTest.opt1ArrPassive[0];
           }
           ///############# Switch select from Option3 to Option2
           else if (keyEvent === selTest.opt2Arr[0]) {
@@ -449,16 +449,16 @@ export function selectOption(options, keyEvent) {
             selTest.activeArr = selTest.opt2Arr.slice();
             selTest.opt3ArrPassive = [];
             selTest.opt2ArrPassive.push(selTest.activeArr.shift());
-            el("#opt3").innerText = storedOption.option3;
-            el("#sel3").innerText = "";
-            el("#opt2").innerText = selTest.activeArr.join("");
-            el("#sel2").innerText = selTest.opt2ArrPassive[0];
+            el('#opt3').innerText = storedOption.option3;
+            el('#sel3').innerText = '';
+            el('#opt2').innerText = selTest.activeArr.join('');
+            el('#sel2').innerText = selTest.opt2ArrPassive[0];
           }
           ///############# Stay with Option3
           else if (keyEvent === selTest.activeArr[0]) {
             selTest.opt3ArrPassive.push(selTest.activeArr.shift()); //remove first value
-            el("#opt3").innerText = selTest.activeArr.join("");
-            el("#sel3").innerText = selTest.opt3ArrPassive.join("");
+            el('#opt3').innerText = selTest.activeArr.join('');
+            el('#sel3').innerText = selTest.opt3ArrPassive.join('');
             if (selTest.opt3ArrPassive.length === selTest.opt3Arr.length) {
               ///############# Finish as option 3
               //console.log('OPTION3');
@@ -473,7 +473,7 @@ export function selectOption(options, keyEvent) {
         break;
 
       default:
-        console.log("error: wrong possCount in storedOption-Object");
+        console.log('error: wrong possCount in storedOption-Object');
     }
     ///############# Return false as long as ther is no result
     return false;
@@ -502,9 +502,9 @@ function clearQuestObject() {
 
 ///############# Blinking cursor with timer update
 function blinkCursor() {
-  const cursor = document.querySelector("#cursor");
+  const cursor = document.querySelector('#cursor');
   cursor.style.visibility =
-    cursor.style.visibility == "visible" ? "hidden" : "visible";
+    cursor.style.visibility == 'visible' ? 'hidden' : 'visible';
   timeLeft = questStorage.endTime - Date.now();
   updateTimer(timeLeft);
   if (timeLeft <= 0) {

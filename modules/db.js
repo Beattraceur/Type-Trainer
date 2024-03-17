@@ -23,7 +23,7 @@
   updateMaxLvl()      ... update a levelup in idb of selected profil.
 */
 
-import { update, get, set, del, values, keys } from "../js/idb-src.js";
+import { update, get, set, del, values, keys } from '../js/idb-src.js';
 
 export const db = {
   readKeys: function () {

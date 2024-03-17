@@ -12,7 +12,7 @@
 /*     \ \ \\ \ \//\ \L\.\_\ \ \ /\ \/\ \ /\  __/\ \ \/  */
 /*      \ \_\\ \_\\ \__/.\_\\ \_\\ \_\ \_\\ \____\\ \_\  */
 /*       \/_/ \/_/ \/__/\/_/ \/_/ \/_/\/_/ \/____/ \/_/  */
-/*                                       by Benjamin Hahl*/ 
+/*                                       by Benjamin Hahl*/
 /*
   menu.js
   the central place in the application where the user is 
@@ -22,26 +22,26 @@
   mainMenu() ... the select function to reach the profil,
                  change and mission page.
 */
-import { el } from "./lib.js";
-import { selectOption } from "./typeIt.js";
-import { globals,inputRouter } from "./main.js";
+import { el } from './lib.js';
+import { selectOption } from './typeIt.js';
+import { globals, inputRouter } from './main.js';
 
-export function mainMenu(keyEvent){
-
+export function mainMenu(keyEvent) {
   ///#############Setup Pioneer delivering needed Data
-  if (keyEvent === 'pioneer'){ //first call makes HTML
+  if (keyEvent === 'pioneer') {
+    //first call makes HTML
     //console.log('first call makes HTML');
     //give pioneer a mission
     ///#############Select Object
     const menuOptions = {
-      possCount    :  3,
-      option1      :  'profil',
-      option2      :  'change',
-      option3      :  'mission'
-    }
-  ///#############Create Startpage
+      possCount: 3,
+      option1: 'profil',
+      option2: 'change',
+      option3: 'mission',
+    };
+    ///#############Create Startpage
     // use Object to create the HTML
-    const html =`
+    const html = `
 <pre>
 ____________________________________________________
 | ================================================= |
@@ -60,29 +60,28 @@ lI _______________________________  _____  _________I]             '---''(.'--' 
 </pre>
   `;
 
-  el('#center-container').innerHTML = html;
+    el('#center-container').innerHTML = html;
 
-  selectOption(menuOptions,keyEvent);
-    
-  }else{
-    const selOption = selectOption('',keyEvent);
-    if(selOption === 1){
+    selectOption(menuOptions, keyEvent);
+  } else {
+    const selOption = selectOption('', keyEvent);
+    if (selOption === 1) {
       //console.log('enter PROFIL');
       el('#center-container').innerHTML = ''; //clear center container
       globals.layer = 5;
       inputRouter('pioneer');
-    }else if(selOption === 2){
+    } else if (selOption === 2) {
       //console.log('make CHANGE');
-      
+
       el('#center-container').innerHTML = ''; //clear center container
       globals.layer = 3;
       inputRouter('pioneer');
-    }else if(selOption === 3){
+    } else if (selOption === 3) {
       //console.log('go on MISSION');
-      
+
       el('#center-container').innerHTML = ''; //clear center container
       globals.layer = 4;
       inputRouter('pioneer');
     }
   }
-}  
+}
