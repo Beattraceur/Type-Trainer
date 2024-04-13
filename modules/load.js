@@ -56,5 +56,6 @@ export async function loadKeyLayout() {
 }
 export async function loadTypeLevel() {
   typeLevel = await loadJSON(`../data/typeLevel${globals.region}.json`);
+  globals.lvlCount = Object.keys(typeLevel).length;
   //console.log(typeLevel);
 }

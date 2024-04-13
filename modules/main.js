@@ -36,7 +36,7 @@
 import { dayOrNight } from './theme.js';
 import { mainMenu } from './menu.js';
 import { settings, changeKeyboardLayout } from './settings.js';
-import { typeMission } from './mission.js';
+import { selectMission, typeMission } from './mission.js';
 import { newProfil, selProfil, loadProfil, showProfil } from './profil.js';
 
 //######Function select for router
@@ -44,6 +44,7 @@ export const globals = {
   playerID: 0,
   layer: 1, ///Default:1////Change Startingpoint of App !4 too fast for JSON fetching!
   lvl: 1,
+  lvlCount: 1,
   monDisp: [], //1=seen 2=own
   currentMon: 0,
   layout: 'macDE',
@@ -85,6 +86,9 @@ export function inputRouter(keyEvent) {
       break;
     case 9:
       changeKeyboardLayout(keyEvent);
+      break;
+    case 10:
+      selectMission(keyEvent);
       break;
     default:
       console.log('UserInput: ', keyEvent);

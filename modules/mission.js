@@ -35,8 +35,45 @@ import {
   generateQuestArr,
   generateActiveKeyArr,
 } from './generator.js';
-import { keyLayout } from './load.js';
+import { keyLayout, typeLevel } from './load.js';
 import { typeQuest } from './typeIt.js';
+import { globals, inputRouter } from './main.js';
+
+export function selectMission(keyEvent) {
+  if (keyEvent === 'pioneer') {
+    //first call makes HTML
+    let html = '<h1>Select your mission</h1>';
+    html += `<p id='level'>Level ${globals.lvl} selected</p>`;
+    html += `
+<pre>
+navigation    [↑][↓]
+                
+
+select          [←‾|
+                 | |
+                  ‾
+</pre>
+        `;
+
+    el('#center-container').innerHTML = html;
+  } else {
+    if (keyEvent === 'ArrowDown' && globals.lvl > 1) {
+      globals.lvl--;
+      el(
+        '#level'
+      ).innerHTML = `<p id='level'>Level ${globals.lvl} selected</p>`;
+    } else if (keyEvent === 'ArrowUp' && globals.lvl < globals.lvlCount) {
+      globals.lvl++;
+      el(
+        '#level'
+      ).innerHTML = `<p id='level'>Level ${globals.lvl} selected</p>`;
+    } else if (keyEvent === 'Enter') {
+      el('#center-container').innerHTML = ''; //clear center container
+      globals.layer = 4;
+      inputRouter('pioneer');
+    }
+  }
+}
 
 export function typeMission(keyEvent) {
   //console.log('Mission start',lvl,keyEvent);

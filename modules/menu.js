@@ -80,7 +80,7 @@ lI _______________________________  _____  _________I]             '---''(.'--' 
       //console.log('go on MISSION');
 
       el('#center-container').innerHTML = ''; //clear center container
-      globals.layer = 4;
+      globals.layer = 10;
       inputRouter('pioneer');
     }
   }
