@@ -27,15 +27,15 @@ Maybe you can collect these creatures after a successful run as a reward in the 
 For now, you will just see an analytics graph in addition to your type-speed and accuracy after each session.<br>
 If you are logged in with your local account, each run will be saved to your browser's local storage.</p>
 <h3>Features:</h3>
-<p>In local storage, you can set up multiple accounts that can be managed within the profile page.</p>
-<p>When TypeTrainer is opened with Chrome browser, you can install it as a local PWA application.</p>
-<p>In Settings (typed "change" in the main menu) you can switch between different keyboard layouts like "macDE" or "macUS".<br>
-These layouts are stored in JSON format in the project's data folder. Feel free to edit these JSONs or include new layouts as you like.</p>
+<p>In local storage, you can set up <b>multiple accounts</b> that can be managed within the profile page.</p>
+<p>When TypeTrainer is opened with Chrome browser, you can install it as a <b>local PWA application.</b></p>
+<p>In Settings (typed "change" in the main menu) you can switch between <b>different keyboard layouts</b> like "macDE" or "macUS".<br>
+These layouts are <b>stored in JSON format</b> in the project's data folder. Feel free to edit these JSONs or include new layouts as you like.</p>
 <p>The available letters for every level are stored in the typeLevel.json file right next to the layout JSONs.<br>
 This file can be configured to your needs as well.<br>
 Every time the client/player starts a mission, a randomized array of these letters is created.<br>
 Each letter is repeated three times for muscle memorization.<br>
-To avoid unnecessary calculation while in the type mission, both the typing array and the keyNr-array are created beforehand.<br>
+To <b>avoid unnecessary calculation</b> while in the type mission, both the <b>typing array</b> and the keyNr-array are <b>created beforehand.</b><br>
 Every time the user hits the right letter, it is simply pushed out of both arrays.<br>
 The keyNr-array is used to highlight the following key on the virtual keyboard for visual guidance.</p>
 <p>For analytics, an error array is created which holds the time delay between each successful hit as well as the false key hits.<br>
